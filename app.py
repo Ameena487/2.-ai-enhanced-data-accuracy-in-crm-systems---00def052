@@ -7,13 +7,13 @@ st.set_page_config(
     layout="wide"
 )
 
-# Now import other modules
+# Updated import paths (removed utils. prefix)
 import pandas as pd
 import os
-from utils.cleaner import clean_data
-from utils.validator import validate_data
+from cleaner import clean_data  # Changed from utils.cleaner
+from validator import validate_data  # Changed from utils.validator
 
-# Custom CSS for colorful UI
+# Custom CSS for colorful UI (unchanged)
 st.markdown("""
 <style>
     /* Main background */
@@ -79,11 +79,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Create data directories if they don't exist
+# Create data directories if they don't exist (unchanged path)
 os.makedirs("data/raw", exist_ok=True)
 os.makedirs("data/cleaned", exist_ok=True)
 
-# Colorful sidebar
+# Colorful sidebar (unchanged)
 with st.sidebar:
     st.markdown("""
     <h2 style='color: white;'>⚙️ Settings</h2>
@@ -102,7 +102,7 @@ with st.sidebar:
     <p style='color: white; font-size: small;'>Transform your messy data into clean insights!</p>
     """, unsafe_allow_html=True)
 
-# Main Interface with colorful elements
+# Main Interface with colorful elements (unchanged)
 st.markdown("""
 <h1 style='border-bottom: 2px solid #4b6cb7; padding-bottom: 10px;'>
     🤖 <span style='color: #4b6cb7;'>AI Enhanced Data Accuracy in CRM System</span> ✨
@@ -115,7 +115,7 @@ st.markdown("""
 </p>
 """, unsafe_allow_html=True)
 
-# File Upload with colorful styling
+# File Upload with colorful styling (unchanged)
 uploaded_file = st.file_uploader(
     "📁 Drag & Drop your CRM data (CSV)",
     type=["csv"],
@@ -124,12 +124,12 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file:
-    # Save uploaded file
+    # Save uploaded file (unchanged path)
     raw_path = os.path.join("data", "raw", uploaded_file.name)
     with open(raw_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
     
-    # Read data
+    # Read data (unchanged)
     df = pd.read_csv(raw_path)
     
     with st.expander("🔍 View Raw Data", expanded=True):
@@ -157,7 +157,7 @@ if uploaded_file:
             clean_path = os.path.join("data", "cleaned", f"cleaned_{uploaded_file.name}")
             cleaned_df.to_csv(clean_path, index=False)
         
-        # Show results with colorful styling
+        # Show results with colorful styling (unchanged)
         st.balloons()
         st.success(f"✅ AI cleaning complete! Valid records: {len(cleaned_df)}/{len(df)}")
         
@@ -175,7 +175,7 @@ if uploaded_file:
             else:
                 st.success("✔️ Perfect! No validation errors found")
         
-        # Download button with styling
+        # Download button with styling (unchanged)
         st.download_button(
             label="⬇️ Download Cleaned Data",
             data=cleaned_df.to_csv(index=False),
